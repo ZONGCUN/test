@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>客如云产品亮点</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .phone-frame {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #f5f7fa;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 品牌头部 */
+        .brand-header {
+            background: linear-gradient(135deg, #1565FF 0%, #3D8BFF 60%, #6BB0FF 100%);
+            padding: 18px 20px 22px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-header::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -20px;
+            width: 180px; height: 180px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .brand-header::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: 30px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .brand-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand-icon {
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            backdrop-filter: blur(8px);
+        }
+
+        .brand-text {
+            color: #fff;
+        }
+
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            opacity: 0.85;
+            margin-top: 2px;
+        }
+
+        /* 搜索框 */
+        .search-wrap {
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px 14px 10px 36px;
+            border: none;
+            border-radius: 22px;
+            font-size: 13px;
+            background: rgba(255,255,255,0.95);
+            color: #333;
+        }
+
+        .search-input::placeholder { color: #aaa; }
+        .search-input:focus { outline: none; box-shadow: 0 2px 12px rgba(0,0,0,0.12); }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+        }
+
+        /* 四大分类卡片 */
+        .main-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            background: #fff;
+            padding: 14px 12px;
+            border-bottom: 1px solid #eef0f4;
+        }
+
+        .main-tab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 4px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.25s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .main-tab:active { transform: scale(0.94); }
+
+        .main-tab.active {
+            background: linear-gradient(135deg, #EBF3FF 0%, #F5F9FF 100%);
+        }
+
+        .main-tab-icon {
+            width: 44px; height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: all 0.25s;
+        }
+
+        .main-tab:nth-child(1) .main-tab-icon { background: linear-gradient(135deg, #E3F0FF 0%, #CCE4FF 100%); }
+        .main-tab:nth-child(2) .main-tab-icon { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); }
+        .main-tab:nth-child(3) .main-tab-icon { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); }
+        .main-tab:nth-child(4) .main-tab-icon { background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); }
+
+        .main-tab.active .main-tab-icon {
+            box-shadow: 0 4px 12px rgba(21, 101, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .main-tab-label {
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.25s;
+        }
+
+        .main-tab.active .main-tab-label {
+            color: #1565FF;
+            font-weight: 600;
+        }
+
+        .main-tab-count {
+            font-size: 10px;
+            color: #bbb;
+        }
+
+        /* 内容滚动区 */
+        .content-scroll {
+            height: calc(100vh - 120px - 78px);
+            overflow-y: auto;
+            background: #f5f7fa;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .content-scroll::-webkit-scrollbar { display: none; }
+
+        /* 分类内容 */
+        .tab-content {
+            display: none;
+            padding: 16px;
+            animation: fadeUp 0.35s ease;
+        }
+
+        .tab-content.active { display: block; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 分类标题 */
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+        }
+
+        .section-head-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-head-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #1565FF;
+        }
+
+        .section-head-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .section-head-badge {
+            font-size: 11px;
+            color: #1565FF;
+            background: #EBF3FF;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+
+        /* 产品卡片列表 */
+        .item-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .item-card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 14px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .item-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 12px rgba(21, 101, 255, 0.12);
+        }
+
+        .item-card.disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .item-card.disabled:active {
+            transform: none;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+        }
+
+        .item-icon {
+            width: 42px; height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        /* 不同分类的图标背景色 */
+        .tab-product .item-icon { background: linear-gradient(135deg, #E3F0FF 0%, #CCE4FF 100%); }
+        .tab-case .item-icon { background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); }
+        .tab-solution .item-icon { background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%); }
+        .tab-ai .item-icon { background: linear-gradient(135deg, #F3E5F5 0%, #E1BEE7 100%); }
+
+        .item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1a1a1a;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-sub {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+
+        .item-arrow {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            background: #f5f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #ccc;
+            flex-shrink: 0;
+        }
+
+        .item-card:not(.disabled) .item-arrow {
+            background: #EBF3FF;
+            color: #1565FF;
+        }
+
+        /* 底部 */
+        .footer {
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 12px;
+            color: #1565FF;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .footer-text {
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        /* 搜索结果提示 */
+        .search-tip {
+            padding: 4px 0 12px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #ccc;
+        }
+
+        .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+        .empty-state-text { font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- 品牌头部 -->
+        <div class="brand-header">
+            <div class="brand-row">
+                <div class="brand-icon">☁️</div>
+                <div class="brand-text">
+                    <h1>客如云产品亮点</h1>
+                    <p>产品知识 · 案例 · 解决方案 · AI专区</p>
+                </div>
+            </div>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="搜索产品、案例、解决方案...">
+            </div>
+        </div>
+
+        <!-- 四大分类 -->
+        <div class="main-tabs" id="mainTabs">
+            <div class="main-tab active" data-tab="product">
+                <div class="main-tab-icon">📦</div>
+                <span class="main-tab-label">产品知识</span>
+                <span class="main-tab-count">16项</span>
+            </div>
+            <div class="main-tab" data-tab="case">
+                <div class="main-tab-icon">🏆</div>
+                <span class="main-tab-label">案例获取</span>
+                <span class="main-tab-count">4项</span>
+            </div>
+            <div class="main-tab" data-tab="solution">
+                <div class="main-tab-icon">💡</div>
+                <span class="main-tab-label">解决方案</span>
+                <span class="main-tab-count">10项</span>
+            </div>
+            <div class="main-tab" data-tab="ai">
+                <div class="main-tab-icon">🤖</div>
+                <span class="main-tab-label">AI专区</span>
+                <span class="main-tab-count">3项</span>
+            </div>
+        </div>
+
+        <!-- 内容滚动区 -->
+        <div class="content-scroll" id="contentArea"></div>
+    </div>
+
+    <script>
+        // 数据
+        const allData = {
+            product: {
+                title: '产品知识',
+                items: [
+                    { name: 'KPOS智享版', icon: '💳', link: 'https://alidocs.dingtalk.com/i/nodes/QOG9lyrgJP3OawR4IwPdE2GlVzN67Mw4?utm_scene=team_space' },
+                    { name: '私域营销', icon: '📣', link: 'https://alidocs.dingtalk.com/i/nodes/YQBnd5ExVEwmDLN2f27GY9YG8yeZqMmz?utm_scene=team_space' },
+                    { name: '智慧屏CDS', icon: '📺', link: 'https://alidocs.dingtalk.com/i/nodes/a9E05BDRVQ6Lmw0vh5ZlQoE0J63zgkYA?utm_scene=team_space' },
+                    { name: '移动点餐宝', icon: '📱', link: 'https://alidocs.dingtalk.com/i/nodes/7NkDwLng8ZM3DwvptxA4N0l4JKMEvZBY?utm_scene=team_space' },
+                    { name: '数智报表', icon: '📊', link: 'https://alidocs.dingtalk.com/i/nodes/Y1OQX0akWm3gAmbEIaYobnRxJGlDd3mE?utm_scene=team_space' },
+                    { name: '智能后厨KDS', icon: '👨‍🍳', link: 'https://alidocs.dingtalk.com/i/nodes/a9E05BDRVQ6Lmw0vhyKPYabZJ63zgkYA?utm_scene=team_space' },
+                    { name: '企微代运营', icon: '💬', link: 'https://alidocs.dingtalk.com/i/nodes/Y1OQX0akWm3gAmbEIvRbqkElJGlDd3mE?utm_scene=team_space' },
+                    { name: '碰碰贴', icon: '👆', link: 'https://alidocs.dingtalk.com/i/nodes/KGZLxjv9VG3RMLXZIxReyGZeV6EDybno?utm_scene=team_space' },
+                    { name: '经营大屏', icon: '🖥️', link: 'https://alidocs.dingtalk.com/i/nodes/gvNG4YZ7JneMBnYECRjMn4KaV2LD0oRE?utm_scene=team_space' },
+                    { name: '易定', icon: '📋', link: 'https://alidocs.dingtalk.com/i/nodes/P7QG4Yx2Jp7N5KyEs1q66QYnV9dEq3XD?utm_scene=team_space' },
+                    { name: '智能巡店', icon: '📹', link: 'https://alidocs.dingtalk.com/i/nodes/NZQYprEoWoerA73ECDA6EonNJ1waOeDk?utm_scene=team_space' },
+                    { name: '新零售', icon: '🛒', link: 'https://alidocs.dingtalk.com/i/nodes/R1zknDm0WR3enwb9IndBGDrvVBQEx5rG?utm_scene=team_space' },
+                    { name: '进销存', icon: '📦', link: 'https://alidocs.dingtalk.com/i/nodes/NZQYprEoWoerA73ECMGBqyDZJ1waOeDk?utm_scene=team_space' },
+                    { name: '文典供应链', icon: '🔗', link: 'https://alidocs.dingtalk.com/i/nodes/XPwkYGxZV3RXjGnxCYMzDPzzWAgozOKL?utm_scene=team_space' },
+                    { name: '电子发票', icon: '🧾', link: 'https://alidocs.dingtalk.com/i/nodes/N7dx2rn0JbZ92gXRIx9G6PO4JMGjLRb3?utm_scene=team_space' },
+                    { name: '智慧分销商城', icon: '🏪', link: 'https://alidocs.dingtalk.com/i/nodes/dQPGYqjpJYg09w4Xtz1NEMwmWakx1Z5N?utm_scene=team_space' }
+                ]
+            },
+            case: {
+                title: '案例获取',
+                items: [
+                    { name: '产品案例合集', icon: '🏆', link: 'https://alidocs.dingtalk.com/i/nodes/G1DKw2zgV2RXMGmOCRLMYqyYVB5r9YAn?utm_scene=team_space' },
+                    { name: '运营案例合集', icon: '📈', link: 'https://alidocs.dingtalk.com/i/nodes/MNDoBb60VLrOpwaRtBGPYGl98lemrZQ3?utm_scene=team_space' },
+                    { name: '小程序案例合集', icon: '📲', link: 'https://alidocs.dingtalk.com/i/nodes/MNDoBb60VLrOpwaRtBGPYGl98lemrZQ3?utm_scene=team_space' },
+                    { name: 'AI案例合集', icon: '🤖', link: '' }
+                ]
+            },
+            solution: {
+                title: '解决方案',
+                items: [
+                    { name: 'AI解决方案', icon: '🤖', link: 'https://alidocs.dingtalk.com/i/nodes/kDnRL6jAJM3A25m0IGxA3m5MWyMoPYe1?utm_scene=team_space' },
+                    { name: '正餐解决方案', icon: '🍽️', link: 'https://alidocs.dingtalk.com/i/nodes/Gl6Pm2Db8D3m9LrpIYYedz7zJxLq0Ee4?utm_scene=team_space' },
+                    { name: '河海鲜解决方案', icon: '🦐', link: 'https://alidocs.dingtalk.com/i/nodes/N7dx2rn0JbZ92gXRIyyZjOokJMGjLRb3?utm_scene=team_space' },
+                    { name: '自助餐解决方案', icon: '🍱', link: 'https://alidocs.dingtalk.com/i/nodes/jb9Y4gmKWr7l5vOEsxx4A5abVGXn6lpz?utm_scene=team_space' },
+                    { name: '烧烤解决方案', icon: '🍖', link: 'https://alidocs.dingtalk.com/i/nodes/vy20BglGWOeOZl7KCYYg3d3lJA7depqY?utm_scene=team_space' },
+                    { name: '火锅解决方案', icon: '🍲', link: 'https://alidocs.dingtalk.com/i/nodes/o14dA3GK8g5NnXaEHkknAP3kV9ekBD76?utm_scene=team_space' },
+                    { name: '茶饮解决方案', icon: '🧋', link: 'https://alidocs.dingtalk.com/i/nodes/7NkDwLng8ZM3DwvptMMNY3yYJKMEvZBY?utm_scene=team_space' },
+                    { name: '快餐解决方案', icon: '⚡', link: 'https://alidocs.dingtalk.com/i/nodes/G1DKw2zgV2RXMGmOCDDqolvNVB5r9YAn?utm_scene=team_space' },
+                    { name: '熟食卤味解决方案', icon: '🥘', link: 'https://alidocs.dingtalk.com/i/nodes/7NkDwLng8ZM3DwvptMMN2gp3JKMEvZBY?utm_scene=team_space' },
+                    { name: '小碗菜解决方案', icon: '🥗', link: 'https://alidocs.dingtalk.com/i/nodes/gwva2dxOW4KpNGrxfAAkq7jP8bkz3BRL?utm_scene=team_space' }
+                ]
+            },
+            ai: {
+                title: 'AI专区',
+                items: [
+                    { name: '客服AI', icon: '💁', link: '' },
+                    { name: '效率AI', icon: '⚡', link: '' },
+                    { name: '效果AI', icon: '🎯', link: '' }
+                ]
+            }
+        };
+
+        let currentTab = 'product';
+
+        // 打开链接
+        function openLink(url) {
+            if (!url || url.length === 0) return;
+            window.location.href = url;
+        }
+
+        // 渲染标签栏
+        function renderTabs() {
+            document.querySelectorAll('.main-tab').forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.tab === currentTab);
+            });
+        }
+
+        // 渲染内容
+        function renderContent(keyword) {
+            const area = document.getElementById('contentArea');
+
+            if (keyword) {
+                // 搜索模式
+                let results = [];
+                Object.keys(allData).forEach(key => {
+                    allData[key].items.forEach(item => {
+                        if (item.name.toLowerCase().includes(keyword.toLowerCase())) {
+                            results.push({ ...item, tabKey: key, tabTitle: allData[key].title });
+                        }
+                    });
+                });
+
+                if (results.length === 0) {
+                    area.innerHTML = `<div style="padding:16px;"><div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-text">未找到相关内容</div></div></div>`;
+                    return;
+                }
+
+                let html = `<div style="padding:16px;"><div class="search-tip">找到 ${results.length} 个结果</div><div class="item-list">`;
+                results.forEach(item => {
+                    html += renderItem(item, item.tabKey);
+                });
+                html += `</div><div class="footer"><div class="footer-brand">客如云 Keruyun</div><div class="footer-text">餐饮数字化服务专家</div></div></div>`;
+                area.innerHTML = html;
+            } else {
+                // 分类模式
+                const data = allData[currentTab];
+                let html = `<div style="padding:16px;" class="tab-${currentTab}">`;
+                html += `<div class="section-head">`;
+                html += `<div class="section-head-left"><div class="section-head-dot"></div><div class="section-head-title">${data.title}</div></div>`;
+                html += `<div class="section-head-badge">${data.items.length} 项</div>`;
+                html += `</div>`;
+                html += `<div class="item-list">`;
+                data.items.forEach(item => {
+                    html += renderItem(item, currentTab);
+                });
+                html += `</div>`;
+                html += `<div class="footer"><div class="footer-brand">客如云 Keruyun</div><div class="footer-text">餐饮数字化服务专家</div></div>`;
+                html += `</div>`;
+                area.innerHTML = html;
+            }
+        }
+
+        // 渲染单个卡片
+        function renderItem(item, tabKey) {
+            const hasLink = item.link && item.link.length > 0;
+            const clickHandler = hasLink ? `onclick="openLink('${item.link}')"` : '';
+            const disabledClass = hasLink ? '' : ' disabled';
+            const subText = hasLink ? '点击查看详情' : '即将上线';
+
+            return `<div class="item-card${disabledClass}" ${clickHandler}>
+                <div class="item-icon">${item.icon}</div>
+                <div class="item-info">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-sub">${subText}</div>
+                </div>
+                <div class="item-arrow">${hasLink ? '›' : ''}</div>
+            </div>`;
+        }
+
+        // 标签切换
+        document.getElementById('mainTabs').addEventListener('click', function(e) {
+            const tab = e.target.closest('.main-tab');
+            if (!tab) return;
+            currentTab = tab.dataset.tab;
+            renderTabs();
+            document.getElementById('searchInput').value = '';
+            renderContent();
+        });
+
+        // 搜索
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const keyword = e.target.value.trim();
+            renderContent(keyword || '');
+        });
+
+        // 初始化
+        renderTabs();
+        renderContent();
+    </script>
+</body>
+</html>
